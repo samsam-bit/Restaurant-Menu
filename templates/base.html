@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> {% block title %} Responsive Navbar {% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel = "stylesheet" href="{{ url_for('static' , filename = 'home.css')}} ">
+  <script src ="{{ url_for('static', filename='script.js') }}" defer></script>
+
+</head>
+<body>
+  <nav>
+    <div class="logo" id = "logo">
+      <pre>-Kazumi 和
+ House - 美 </pre>
+    </div>
+
+    <div class = "nav_links">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li> <a href ="#about"> About </a> </li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li> <a href ="#contact"> Contact Us </a></li>
+    </div>
+      <li id = "button"> <a href="#reservation"> Make a reservation </a> </li>
+      </ul>
+  </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-about">
+      <h3>About Us</h3>
+      <p>Welcome to our restaurant! We offer the finest dishes and a cozy atmosphere for all guests.</p>
+    </div>
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#menu">Menu</a></li>
+        <li><a href="/#reviews">Reviews</a></li>
+        <li><a href="/#reservation">Reservation</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact Us</h3>
+      <p>Email: info@restaurant.com</p>
+      <p>Phone: +1 234 567 890</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2025 My Restaurant. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>

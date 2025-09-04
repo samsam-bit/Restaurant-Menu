@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %} Home - Kazumi House {% endblock %}
+
+{% block content %}
+<div class="hero">
+  <div class="home-container">
+    <h1> Welcome to Kazumi House </h1>
+    <p>
+      Experience the authentic taste of Japan right here at Kazumi House.  
+      Our chefs craft each dish with precision and passion, using only the freshest ingredients  
+      to bring you a culinary journey like no other.
+    </p>
+    <a href = "#menu"><button class="explore-button"> Explore Our Menu </button> </a>
+  </div>
+
+  <img src="{{ url_for('static', filename='imgs/sushi-removebg-preview (1).png') }}" 
+       alt="platesushi" class="platesushi">
+</div>
+<section class="about-wrapper" id="about">
+  <div class="about-section">
+    <h2 class="aboutus"> __About Us </h2>
+    <p class="about-text">
+      At Kazumi House, we believe in delivering an unforgettable dining experience.  
+      Our restaurant combines traditional Japanese flavors with a modern twist,  
+      creating a unique atmosphere that is both inviting and elegant.  
+      Whether you're here for a casual meal or a special occasion,  
+      our team is dedicated to making your visit exceptional.
+    </p>
+  </div>
+
+  <div class="images-section">
+    <div class="img-row">
+      <img src="{{ url_for('static', filename='imgs/daniel-JD-NLdHepHE-unsplash.jpg') }}" alt="Sushi Platter" class="image1">
+      <img src="{{ url_for('static', filename='imgs/daniel-kV4-vFoamV4-unsplash.jpg') }}" alt="Ramen Bowl" class="image2" >
+    </div>
+    <div class="img-row">
+      <img src="{{ url_for('static', filename='imgs/louis-hansel-wXkGvQJWI-Y-unsplash.jpg') }}" alt="Tempura Dish" class="image3" >
+      <img src="{{ url_for('static', filename='imgs/daniel-gRWG5jMDBzQ-unsplash.jpg') }}" alt="Tempura Dish" class="image4">
+    </div>
+  </div>
+</section>
+<section class="menu-section" id="menu">
+  <h2 class="menu-heading">__Our Menu__</h2>
+  <div class="menu-grid">
+    {% for item in items %}
+      <div class="menu-item {{ item.name | replace(' ', '-') | lower }}">
+        {% if item.image %}
+          <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}">
+        
+        {% endif %}
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <p>${{ item.price }}</p>
+        <form action="/order" method="post">
+        <input type="hidden" name="reservation_id" value="{{ reservation_id }}">
+        <input type="hidden" name="menu_item" value="{{ item.name }}">
+        <input type="number" name="quantity" min="1" value="1" class="quantity-input">
+        <button type="submit" class="order-button">Add to Order</button>
+      </form>
+
+      </div>
+    {% endfor %}
+     <form action="/view_order" method="GET">
+      <input type="hidden" name="reservation_id" value="{{ reservation_id }}">
+     <button type="submit" class="view-order-button">
+      View Order
+    </button>
+     </form>
+    
+  </div>
+</section>
+<section class="reservation-section" id="reservation">
+  <h2 class="reservation-heading">__Make a Reservation__</h2>
+  <div class="reservation-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.9153343665253!2d31.314482788005474!3d30.096611030882393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145815863af0db1f%3A0x256d096590e34ff7!2sMerryland%20Park!5e0!3m2!1sen!2sus!4v1756999449034!5m2!1sen!2sus" 
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <form action="/reservation" method="post" class="reservation-form">
+    <label for="name"></label>
+    <input type="text" id="name" name="name" required placeholder="Full Name">
+
+    <label for="email"> </label>
+    <input type="email" id="email" name="email" required placeholder="Email Address">
+
+    <label for="phone"></label>
+    <input type="tel" id="phone" name="phone" required placeholder="Phone Number">
+
+    <label for="date"></label>
+    <input type="date" id="date" name="date" required placeholder="Reservation Date">
+
+    <label for="time"></label>
+    <input type="time" id="time" name="time" required placeholder="Reservation Time">
+
+    <label for="guests"></label>
+    <label for="guests"></label>
+<input type="number" id="guests" name="guests" min="1" max="20" value="1">
+    <button type="submit" class="submit-button">Book Now</button>
+  </form>
+  </div>
+</section>
+
+ <h1 id="reviews">_Our recent Reviews_</h1>
+ <section class="allofit">
+  <div class="opinion-field">
+      <textarea placeholder="Share your experience!"></textarea>
+      <button type="submit">Submit</button>
+  </div>
+  <section class="container">
+  <div class="slider-wrapper">
+    <div class="slider">
+      <img id="slide-1" src="{{ url_for('static', filename='imgs/review.png') }}" alt="opinion 1" />
+      <img id="slide-2" src="{{ url_for('static', filename='imgs/review.png') }}" alt="opinion 2" />
+      <img id="slide-3" src="{{ url_for('static', filename='imgs/review.png') }}" alt="opinion 3" />
+    </div>
+  </div>
+
+  <div class="slider-nav">
+    <a href="#slide-1"></a>
+    <a href="#slide-2"></a>
+    <a href="#slide-3"></a>
+  </div>
+</section>
+ </section>
+
+
+
+{% endblock %}

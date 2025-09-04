@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Order{% endblock %}
+
+{% block content %}
+<div class="edit-container">
+  <h2>Edit Your Order</h2>
+
+  <table class="edit-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.menu_item }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>
+          <form action="/update_quantity/{{ order.id }}" method="POST" class="inline-form">
+            <input type="hidden" name="reservation_id" value="{{ reservation_id }}">
+            <button name="action" value="decrease" class="btn minus-btn">-</button>
+            <button name="action" value="increase" class="btn plus-btn">+</button>
+          </form>
+
+          <form action="/delete_order/{{ order.id }}" method="POST" class="inline-form">
+            <input type="hidden" name="reservation_id" value="{{ reservation_id }}">
+            <button class="btn delete-btn">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form action="/save_order" method="POST">
+    <input type="hidden" name="reservation_id" value="{{ reservation_id }}">
+    <button class="btn save-btn">Save & Go Back</button>
+  </form>
+</div>
+{% endblock %}
